@@ -1,0 +1,22 @@
+.home-page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .welcome {
+    flex: 1; /* Занимает доступное пространство слева */
+    padding-right: 20px; /* Отступ справа */
+  }
+  
+  .image-container {
+    flex: 1; /* Занимает доступное пространство справа */
+    text-align: right; /* Выравнивание изображения по правому краю */
+  }
+  
+  img {
+    max-width: 100%; /* Ограничение ширины изображения */
+    height: auto; /* Поддержка пропорций */
+  }
+  
