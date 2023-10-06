@@ -15,17 +15,6 @@ import { fetchApartments, fetchApartmentById } from './mockApi';
 
 
 function App() {
-  // const [apartments, setApartments] = useState([]);
-
-  // useEffect(() => {
-  //   fetchApartments()
-  //     .then((data) => {
-  //       setApartments(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Ошибка при загрузке данных:', error);
-  //     });
-  // }, []);
 
   const [apartments, setApartments] = useState([]);
   const [selectedApartmentId, setSelectedApartmentId] = useState(null); // Инициализация идентификатора квартиры
@@ -47,20 +36,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          {/* <Route path="/apartment-list" element={<ApartmentList apartments={apartments} />} /> */}
-          {/* <Route path="/apartment/:id" element={<ApartmentDetail />} /> */}
-          <Route path="/apartment-list"
-            element={
-              <ApartmentList
-                apartments={apartments}
-                onApartmentClick={(id) => setSelectedApartmentId(id)} // Устанавливаем выбранный id
-              />
-            }
-          />
-          <Route
-            path="/apartment/:id"
-            element={<ApartmentDetail apartments={apartments} />}
-          />
+          <Route path="/apartment-list" element={<ApartmentList apartments={apartments} onApartmentClick={(id) => setSelectedApartmentId(id)} />} />
+          <Route path="/apartment/:id" element={<ApartmentDetail apartments={apartments} />} />
 
         </Routes>
       </Router>
