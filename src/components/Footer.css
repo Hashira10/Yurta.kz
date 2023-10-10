@@ -1,13 +1,9 @@
-.footer {
-    background-color: #4410a5;
-    color: #fff;
-    padding: 10px;
-  }
-  .footer-container {
+
+.footer-container {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    background-color: #220b02; /* Черный фон */
-    color: #fff; /* Белый текст */
-    padding: 20px; /* Отступы вокруг контейнера */
+    background-color: #220b02; 
+    color: #fff; 
+    padding: 20px;
   }

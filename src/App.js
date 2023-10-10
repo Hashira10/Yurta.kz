@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ApartmentList from './components/ApartmentList';
 import ApartmentDetail from './components/ApartmentDetail';
+import "./App.css";
 
 
 import React, { useEffect, useState } from 'react';
@@ -17,7 +18,7 @@ import { fetchApartments, fetchApartmentById } from './mockApi';
 function App() {
 
   const [apartments, setApartments] = useState([]);
-  const [selectedApartmentId, setSelectedApartmentId] = useState(null); // Инициализация идентификатора квартиры
+  const [selectedApartmentId, setSelectedApartmentId] = useState(null);
 
   useEffect(() => {
     fetchApartments()
@@ -30,13 +31,13 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div id="app">
       <Router>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/apartment-list" element={<ApartmentList apartments={apartments} onApartmentClick={(id) => setSelectedApartmentId(id)} />} />
+          <Route path="/apartment-list" element={<ApartmentList apartments={apartments} />} />
           <Route path="/apartment/:id" element={<ApartmentDetail apartments={apartments} />} />
 
         </Routes>

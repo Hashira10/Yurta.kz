@@ -5,26 +5,20 @@ function Footer() {
     <footer className="footer-container">
       <div className="footer-section">
         <h3>About Us</h3>
-        <p>Наша компания занимается...</p>
-      </div>
-      <div className="footer-section">
-        <h3>Useful links</h3>
-        <ul>
-          <li><a href="#">Ссылка 1</a></li>
-          <li><a href="#">Ссылка 2</a></li>
-          {/* Добавьте другие ссылки по аналогии */}
-        </ul>
+        <p> We are a reliable and experienced guide in</p>
+        <p> the world of real estate, providing you with</p>
+        <p> a wide selection of apartments and houses for rent.</p>
       </div>
       <div className="footer-section">
         <h3>Help</h3>
-        <p>Если у вас возникли вопросы, свяжитесь с нами:</p>
-        <p>support@example.com</p>
+        <p>If you have any questions, please contact us:</p>
+        <p>yurta.kz.@gmail.com</p>
       </div>
       <div className="footer-section">
         <h3>Contacts</h3>
         <address>
-          <p>Location: г. Ваш город, ул. Ваша улица</p>
-          <p>Number: +7 (123) 456-7890</p>
+          <p>Location: Almaty</p>
+          <p>Number: +7 (705) 555-5555</p>
         </address>
       </div>
     </footer>

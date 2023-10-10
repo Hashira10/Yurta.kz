@@ -1,11 +1,14 @@
 import React from 'react';
-import './Header.css'; // Импорт стилей
+import './Header.css';
 import NavBar from './NavBar';
+import { Link } from 'react-router-dom';
 function Header() {
   return (
     <header className="header">
       <div className="logo">
-        <img src="/images/Logo.png" alt="Logo" style={{ width: '20%' }} />
+        <Link to={`/`}>
+        <img src="/images/Logo.png" alt="Logo" style={{ width: '30%' }} />
+        </Link>
       </div>
       <NavBar />
     </header>

@@ -11,11 +11,12 @@ function Home() {
       <div className="welcome">
         <div className="welcome-block">
           <h1>Welcome to our real estate website!</h1>
-          <p >Here you will find the best offers for buying, 
-            selling, renting and renting houses and apartments. 
-            Our team is ready to help you find the perfect 
-            accommodation that suits your needs and budget. 
-            Start searching today!</p>
+          <p >Here you will find the best offers for 
+            renting and renting apartments. Our team 
+            is ready to help you find the perfect 
+            accommodation that suits your needs and 
+            budget. Start your search today!
+          </p>
         </div>
       </div>
       <div className="image-container">

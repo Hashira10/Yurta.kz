@@ -1,11 +1,13 @@
 .navbar {
-    height: 8vh;
+    display: flex;
+    justify-content: left; 
+    width: 100%;
   }
 .navbar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Используйте flexbox */
+    display: flex;
     justify-content: center;
     align-items: center;
     
@@ -14,7 +16,7 @@
     margin-right: 40px;
 }
 
-/* Стили для ссылок в меню */
+
 .navbar a {
     text-decoration: none;
     color: #ffffff;

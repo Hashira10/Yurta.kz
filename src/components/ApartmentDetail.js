@@ -26,7 +26,7 @@ function ApartmentDetail() {
       <h2>{apartment.name}</h2>
       <p>Address: {apartment.address}</p>
       <p>Price: {apartment.price} tg. per month</p>
-      {/* Другие детали квартиры */}
+      
     </div>
   );
 }
