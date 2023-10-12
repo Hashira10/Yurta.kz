@@ -7,7 +7,7 @@ function Header() {
     <header className="header">
       <div className="logo">
         <Link to={`/`}>
-        <img src="/images/Logo.png" alt="Logo" style={{ width: '40%' }} />
+        <img src="/images/Logo.png" alt="Logo" style={{ width: '42%' }} />
         </Link>
       </div>
       <NavBar />
