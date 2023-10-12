@@ -21,7 +21,7 @@ const apartments = [
       name: 'Spacious two-bedroom apartment',
       address: '116 seifullina street',
       price: 350000,
-      rooms: '2',
+      rooms: '1',
       image: '/images/apartment3.jpg',
     },
     {
@@ -29,25 +29,49 @@ const apartments = [
       name: 'Spacious two-bedroom apartment',
       address: '116 seifullina street',
       price: 450000,
-      rooms: '4',
+      rooms: '3',
       image: '/images/apartment4.jpg',
     },
     {
-      id: 4,
+      id: 5,
       name: 'Spacious two-bedroom apartment',
       address: '116 seifullina street',
-      price: 250000,
-      image: '/images/apartment2.jpg',
+      price: 500000,
+      image: '/images/apartment5.jpg',
+      rooms: '2'
     },
     {
-      id: 4,
+      id: 6,
       name: 'Spacious two-bedroom apartment',
       address: '116 seifullina street',
-      price: 250000,
-      image: '/images/apartment2.jpg',
+      price: 350000,
+      image: '/images/apartment6.jpg',
+      rooms: '3'
     },
-    
-    
+    {
+      id: 7,
+      name: 'Spacious two-bedroom apartment',
+      address: 'astana, saraishyk 1',
+      price: 400000,
+      image: '/images/apartment7.jpg',
+      rooms: '2'
+    },
+    {
+      id: 8,
+      name: 'Wonderful apartment',
+      address: 'almaty, tole bi 2',
+      price: 450000,
+      image: '/images/apartment8.jpg',
+      rooms: '3'
+    },
+    {
+      id: 9,
+      name: 'Minimalist two-bedroom apartment',
+      address: 'almaty, al-farabi 100',
+      price: 500000,
+      image: '/images/apartment9.jpg',
+      rooms: '2'
+    }
   ];
   
   export function fetchApartments() {
