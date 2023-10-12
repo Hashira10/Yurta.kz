@@ -47,6 +47,7 @@ const apartments = [
       image: '/images/apartment2.jpg',
     },
     
+    
   ];
   
   export function fetchApartments() {
