@@ -18,7 +18,7 @@ const apartments = [
     },
     {
       id: 3,
-      name: 'Spacious two-bedroom apartment',
+      name: 'Great one-bedroom apartment',
       address: '116 seifullina street',
       price: 350000,
       rooms: '1',
@@ -26,7 +26,7 @@ const apartments = [
     },
     {
       id: 4,
-      name: 'Spacious two-bedroom apartment',
+      name: 'Cozy three-bedroom apartment',
       address: '116 seifullina street',
       price: 450000,
       rooms: '3',
@@ -34,7 +34,7 @@ const apartments = [
     },
     {
       id: 5,
-      name: 'Spacious two-bedroom apartment',
+      name: 'Charming two-bedroom apartment',
       address: '116 seifullina street',
       price: 500000,
       image: '/images/apartment5.jpg',
@@ -42,15 +42,15 @@ const apartments = [
     },
     {
       id: 6,
-      name: 'Spacious two-bedroom apartment',
+      name: 'Modern three-bedroom apartment',
       address: '116 seifullina street',
-      price: 350000,
+      price: 490000,
       image: '/images/apartment6.jpg',
       rooms: '3'
     },
     {
       id: 7,
-      name: 'Spacious two-bedroom apartment',
+      name: 'Bright two-bedroom apartment',
       address: 'astana, saraishyk 1',
       price: 400000,
       image: '/images/apartment7.jpg',
@@ -58,9 +58,9 @@ const apartments = [
     },
     {
       id: 8,
-      name: 'Wonderful apartment',
+      name: 'Stylish apartment',
       address: 'almaty, tole bi 2',
-      price: 450000,
+      price: 550000,
       image: '/images/apartment8.jpg',
       rooms: '3'
     },
@@ -71,6 +71,30 @@ const apartments = [
       price: 500000,
       image: '/images/apartment9.jpg',
       rooms: '2'
+    },
+    {
+      id: 10,
+      name: 'Luxuary three-bedroom apartment',
+      address: 'almaty, al-farabi 99',
+      price: 770000,
+      image: '/images/apartment10.jpg',
+      rooms: '3'
+    },
+    {
+      id: 11,
+      name: 'Minimalist one-bedroom apartment',
+      address: 'almaty, al-farabi 88',
+      price: 400000,
+      image: '/images/apartment11.jpg',
+      rooms: '1'
+    },
+    {
+      id: 12,
+      name: 'Comfy one-bedroom apartment',
+      address: 'almaty, al-farabi 77',
+      price: 440000,
+      image: '/images/apartment12.jpg',
+      rooms: '1'
     }
   ];
   
