@@ -256,8 +256,8 @@ function Profile() {
         <h3>Your Apartments:</h3>
         {userApartments.length > 0 ? (
           userApartments.map((apartment, index) => (
-            <div key={index} className="apartment-card">
-              <img src={URL.createObjectURL(apartment.image)} alt={apartment.name} />
+            <div key={index} className="apartmentCard">
+              <img src={URL.createObjectURL(apartment.image)} alt={apartment.name} className="imageAcpartment"/>
               <h3>{apartment.name}</h3>
               <p>Price: {apartment.price} tg. per month</p>
               <button onClick={() => handleEditApartment(index)} className="editApartmentButton">Edit</button>

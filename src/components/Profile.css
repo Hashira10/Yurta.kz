@@ -93,7 +93,7 @@ input[type="text"] {
     background-color: #3498db;
     border-color: #3498db;
     border-radius: 4px;
-    width: 10%;
+    width: 16%;
     margin-bottom: 20px;
     padding: 5px;
     margin-left: 20px;
@@ -104,7 +104,7 @@ input[type="text"] {
     padding: 20px;
 }
 
-.apartment-card{
+.apartmentCard{
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
