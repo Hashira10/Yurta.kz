@@ -152,6 +152,7 @@ function Profile() {
                 id="userName"
                 value={tempName}
                 onChange={handleNameChange}
+                className='textInput'
               />
             ) : (
               <span>{userName}</span>
@@ -206,6 +207,7 @@ function Profile() {
           onChange={(e) =>
             setNewApartment({ ...newApartment, name: e.target.value })
           }
+          className='textInput'
         />
         <label>Apartment Address</label>
         <input
@@ -215,6 +217,7 @@ function Profile() {
           onChange={(e) =>
             setNewApartment({ ...newApartment, address: e.target.value })
           }
+          className='textInput'
         />
         <label>Apartment Price</label>
         <br />
@@ -236,6 +239,7 @@ function Profile() {
             setNewApartment({ ...newApartment, rooms: e.target.value })
           
           }
+          className='textInput'
           
         />
         <label>Add image for your apartment</label>
@@ -271,6 +275,7 @@ function Profile() {
                   onChange={(e) =>
                     setNewApartment({ ...newApartment, name: e.target.value })
                   }
+                  className='textInput'
                 />
                 <input
                   type="text"
@@ -279,6 +284,7 @@ function Profile() {
                   onChange={(e) =>
                     setNewApartment({ ...newApartment, address: e.target.value })
                   }
+                  className='textInput'
                 />
                 <input
                     type="number"
@@ -295,6 +301,7 @@ function Profile() {
                     onChange={(e) =>
                       setNewApartment({ ...newApartment, rooms: e.target.value })
                     }
+                    className='textInput'
                   />
                   <input
                     type="file"

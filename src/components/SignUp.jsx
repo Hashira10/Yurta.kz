@@ -1,13 +1,16 @@
 import React from 'react';
-import './LogIn.css'
+import './SignUp.css'; // Измените название файла CSS, если необходимо
 import { Link } from 'react-router-dom';
+import { auth } from '../firebase'; // Импортируем экземпляр auth из вашего файла firebase.js
+import { createUserWithEmailAndPassword } from "firebase/auth"
 
-class LogIn extends React.Component {
+class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
       password: '',
+      error: null,
     };
   }
 
@@ -16,21 +19,33 @@ class LogIn extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    
+    const { username, password } = this.state;
+
+    try {
+      // Используем createUserWithEmailAndPassword для регистрации нового пользователя
+      createUserWithEmailAndPassword(auth, username, password).then((auth) => {
+        // it successfully created a new user with email and password
+        if (auth) {
+          this.props.history.push('/'); // Переход на главную страницу после успешной регистрации
+        }
+      })
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
   }
 
   render() {
     return (
       <div className="grid">
-        <form action="https://httpbin.org/post" method="POST" className="form login" onSubmit={this.handleSubmit}>
+        <form className="form login" onSubmit={this.handleSubmit}>
           <div className="form__field">
-            <label htmlFor="login__username">
+            <label htmlFor="signup__username">
               <span className="hidden">Username</span>
             </label>
             <input
-              id="login__username"
+              id="signup__username"
               type="text"
               name="username"
               className="form__input"
@@ -42,12 +57,12 @@ class LogIn extends React.Component {
           </div>
 
           <div className="form__field">
-            <label htmlFor="login__password">
+            <label htmlFor="signup__password">
               <span className="hidden">Password</span>
             </label>
             <input
-              id="login__password"
-              type="text"
+              id="signup__password"
+              type="password" 
               name="password"
               className="form__input"
               placeholder="Password"
@@ -58,15 +73,14 @@ class LogIn extends React.Component {
           </div>
 
           <div className="form__field">
-          <Link to="/login"> {/* Используем Link для перехода */}
             <input type="submit" value="Sign Up" className='loginButton'/>
-          </Link>
-          
           </div>
+          {this.state.error && <p>{this.state.error}</p>}
         </form>
+        <Link to="/login">Already have an account? Sign In</Link>
       </div>
     );
   }
 }
 
-export default LogIn;
+export default SignUp;

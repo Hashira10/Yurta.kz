@@ -1,6 +1,8 @@
 import React from 'react';
-import './LogIn.css'
-import { Link } from 'react-router-dom';
+import './LogIn.css';
+import { Link, withRouter } from 'react-router-dom'; // Import withRouter
+import { auth, firestore } from '../firebase';
+import { signInWithEmailAndPassword } from "firebase/auth"
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -8,6 +10,7 @@ class LogIn extends React.Component {
     this.state = {
       username: '',
       password: '',
+      error: null,
     };
   }
 
@@ -16,16 +19,28 @@ class LogIn extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    
+    const { username, password } = this.state;
+
+    try {
+      signInWithEmailAndPassword(auth, username, password).then((auth) => {
+        // it successfully created a new user with email and password
+        if (auth) {
+          this.props.history.push('/');
+        }
+      })
+    } catch (error) {
+      this.setState({ error: error.message });
+    }
   }
 
   render() {
     return (
       <div className="grid">
-        <form action="https://httpbin.org/post" method="POST" className="form login" onSubmit={this.handleSubmit}>
-          <div className="form__field">
+        <form className="form login" onSubmit={this.handleSubmit}>
+        <div className="form__field">
+            <h2>Yurta</h2 >
             <label htmlFor="login__username">
               <span className="hidden">Username</span>
             </label>
@@ -47,7 +62,7 @@ class LogIn extends React.Component {
             </label>
             <input
               id="login__password"
-              type="text"
+              type="password" 
               name="password"
               className="form__input"
               placeholder="Password"
@@ -56,17 +71,13 @@ class LogIn extends React.Component {
               onChange={this.handleInputChange}
             />
           </div>
-
-          <div className="form__field">
-          <Link to="/"> {/* Используем Link для перехода */}
-            <input type="submit" value="Sign In" className='loginButton'/>
-          </Link>
-          
-          </div>
+          <input type="submit" value="Sign In" className='loginButton'/>
+          {this.state.error && <p>{this.state.error}</p>}
         </form>
       </div>
     );
   }
 }
 
-export default LogIn;
+export default withRouter(LogIn); // Wrap your component with withRouter
+
