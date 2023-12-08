@@ -73,9 +73,6 @@ class LogIn extends React.Component {
           </div>
           <input type="submit" value="Sign In" className='loginButton'/>
           {this.state.error && <p>{this.state.error}</p>}
-          <button className='share_button'>
-        Share with WhatsApp
-      </button>
         </form>
        
 
