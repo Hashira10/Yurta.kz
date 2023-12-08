@@ -91,9 +91,6 @@ return (
               ))}
             </ul>
         </div>
-        <WhatsappShareButton  onClick={shareCurrentPageWithWhatsApp}>
-        Share this apartment via WhatsApp
-      </WhatsappShareButton >
         </div>
 
         <div>
@@ -119,7 +116,7 @@ return (
         </button>
       </div>
 
-      <h3>Comments</h3>
+      <h3 className='comment-section'>Comments</h3>
         {comments.map((comment, index) => (
           <div key={index} className="comment-box">
             <p> <strong> {comment} </strong> </p>
@@ -142,9 +139,8 @@ return (
             />
           ))}
     </div>
-
-
  </div>
+ 
 );
 };
 

@@ -4,6 +4,7 @@ import { fetchApartmentById } from '../mockApi';
 import "./ApartmentDetail.css";
 import { WhatsappShareButton } from 'react-share';
 
+
 function ApartmentDetail() {
   const { id } = useParams();
   const [apartment, setApartment] = useState(null);
@@ -54,9 +55,9 @@ function ApartmentDetail() {
   };
 
   
+  
 
   useEffect(() => {
-    // Загрузка данных о квартире по идентификатору
     fetchApartmentById(parseInt(id, 10))
       .then((data) => {
         setApartment(data);
@@ -93,13 +94,14 @@ return (
               ))}
             </ul>
             <h3 className='price-section'>Price: <span>{apartment.price} tg/month</span></h3>
-            <WhatsappShareButton  onClick={shareCurrentPageWithWhatsApp}>
-              Share this page with WhatsApp
-            </WhatsappShareButton >
             <div> 
           <h3 className='author-section'>Author of the ad: <span>{apartment.author}</span></h3>
           <p>Contacts: {apartment.number}</p>
         </div>
+        
+        <WhatsappShareButton url={window.location.href}> 
+          Share this apartment via WhatsApp 
+        </WhatsappShareButton>
 
        <div className='line'>
         <input
@@ -114,7 +116,7 @@ return (
         </button>
       </div>
 
-      <h3>Comments</h3>
+      <h3 className='comment-section'>Comments</h3>
         {comments.map((comment, index) => (
           <div key={index} className="comment-box">
             <p> <strong> {comment} </strong> </p>
