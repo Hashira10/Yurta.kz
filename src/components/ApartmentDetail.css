@@ -51,10 +51,6 @@ ul {
   margin-left: 70px;
 }
 
-/* p, ul {
-  margin-left: 70px;
-} */
-
 .inner{
   margin-left: 70px;
 }
@@ -69,7 +65,7 @@ ul {
   margin-left: -20px;
 }
 
-button {
+.but{
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
@@ -80,7 +76,7 @@ button {
   margin-left: 30px;
   border-radius: 4px;
   cursor: pointer;
-  border-color: #b59c58;
+  border-color: white;
 }
 
 .add-comment {
@@ -95,6 +91,7 @@ button {
 
 .comment-box{
   display: flex;
+  margin-left: 70px;
 }
 
 .line{

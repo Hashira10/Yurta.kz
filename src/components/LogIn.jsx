@@ -1,6 +1,6 @@
 import React from 'react';
 import './LogIn.css';
-import { Link, withRouter } from 'react-router-dom'; // Import withRouter
+// import { Link, withRouter } from 'react-router-dom'; // Import 
 import { auth, firestore } from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth"
 
@@ -40,7 +40,7 @@ class LogIn extends React.Component {
       <div className="grid">
         <form className="form login" onSubmit={this.handleSubmit}>
         <div className="form__field">
-            <h2>Yurta</h2 >
+            <h2 className='header_name'>Yurta</h2 >
             <label htmlFor="login__username">
               <span className="hidden">Username</span>
             </label>
@@ -73,11 +73,16 @@ class LogIn extends React.Component {
           </div>
           <input type="submit" value="Sign In" className='loginButton'/>
           {this.state.error && <p>{this.state.error}</p>}
+          <button className='share_button'>
+        Share with WhatsApp
+      </button>
         </form>
+       
+
       </div>
     );
   }
 }
 
-export default withRouter(LogIn); // Wrap your component with withRouter
+export default LogIn; 
 

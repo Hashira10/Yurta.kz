@@ -41,6 +41,7 @@ class SignUp extends React.Component {
       <div className="grid">
         <form className="form login" onSubmit={this.handleSubmit}>
           <div className="form__field">
+          <h2 className='header_name'>Yurta</h2 >
             <label htmlFor="signup__username">
               <span className="hidden">Username</span>
             </label>
@@ -71,13 +72,12 @@ class SignUp extends React.Component {
               onChange={this.handleInputChange}
             />
           </div>
-
+          <Link to="/login" className='link_signin'>Already have an account? Sign In</Link>
           <div className="form__field">
             <input type="submit" value="Sign Up" className='loginButton'/>
           </div>
           {this.state.error && <p>{this.state.error}</p>}
         </form>
-        <Link to="/login">Already have an account? Sign In</Link>
       </div>
     );
   }
