@@ -1,16 +1,41 @@
-import React from 'react';
+// В NavBar.js
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { auth } from '../firebase';
 import './NavBar.css';
 
 function NavBar() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+
+    // Очистить подписку при размонтировании компонента
+    return () => unsubscribe();
+  }, []);
+
+
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      setUser(null); // Очищаем состояние пользователя после выхода
+      window.location.reload();
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <nav className='navbar'>
-      <ul >
+      <ul>
         <li>
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/apartment-list">Aparments</Link>
+          <Link to="/apartment-list">Apartments</Link>
         </li>
         <li>
           <Link to="/profile">Profile</Link>
@@ -18,15 +43,26 @@ function NavBar() {
         <li>
           <Link to="/about">About</Link>
         </li>
-        <li>
-          <Link to="/login">LogIn</Link>
-        </li>
-        <li>
-          <Link to="/signup">Sign Up</Link>
-        </li>
+        {user ? (
+          <>
+            <li>
+              <Link to="#" onClick={handleLogout}>LogOut</Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link to="/login">LogIn</Link>
+            </li>
+            <li>
+              <Link to="/signup">SignUp</Link>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );
 }
 
 export default NavBar;
+

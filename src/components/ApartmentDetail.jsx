@@ -2,27 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchApartmentById } from '../mockApi';
 import "./ApartmentDetail.css";
+import { WhatsappShareButton } from 'react-share';
 
 function ApartmentDetail() {
   const { id } = useParams();
   const [apartment, setApartment] = useState(null);
   const [newComment, setNewComment] = useState('');
   const [editingCommentIndex, setEditingCommentIndex] = useState(-1);
-  const [comments, setComments] = useState([]); // Добавьте состояние для комментариев
+  const [comments, setComments] = useState([]); 
 
-  // Функция для добавления комментария
   const addComment = (comment) => {
     setComments([...comments, comment]);
   };
 
-  // Функция для обновления комментария
   const updateComment = (index, comment) => {
     const updatedComments = [...comments];
     updatedComments[index] = comment;
     setComments(updatedComments);
   };
 
-  // Функция для удаления комментария
   const deleteComment = (index) => {
     const updatedComments = [...comments];
     updatedComments.splice(index, 1);
@@ -49,6 +47,13 @@ function ApartmentDetail() {
     }
   };
 
+  const shareCurrentPageWithWhatsApp = () => {
+    const currentUrl = window.location.href;
+    const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(currentUrl)}`;
+    window.location.href = whatsappUrl;
+  };
+
+  
 
   useEffect(() => {
     // Загрузка данных о квартире по идентификатору
@@ -87,16 +92,11 @@ return (
                 <li className='list' key={index}>{advantage}</li>
               ))}
             </ul>
-        </div>
-
-        </div>
-
-        <div>
-          <h3 className='price-section'>Price: <span>{apartment.price} tg/month</span></h3>
-        </div>
-
-
-        <div> 
+            <h3 className='price-section'>Price: <span>{apartment.price} tg/month</span></h3>
+            <WhatsappShareButton  onClick={shareCurrentPageWithWhatsApp}>
+              Share this page with WhatsApp
+            </WhatsappShareButton >
+            <div> 
           <h3 className='author-section'>Author of the ad: <span>{apartment.author}</span></h3>
           <p>Contacts: {apartment.number}</p>
         </div>
@@ -109,7 +109,7 @@ return (
           onChange={(e) => setNewComment(e.target.value)}
           className='add-comment'
         />
-        <button className='but' onClick={editingCommentIndex === -1 ? handleAddComment : handleUpdateComment}>
+        <button onClick={editingCommentIndex === -1 ? handleAddComment : handleUpdateComment}>
           {editingCommentIndex === -1 ? 'Send' : 'Update'}
         </button>
       </div>
@@ -118,13 +118,14 @@ return (
         {comments.map((comment, index) => (
           <div key={index} className="comment-box">
             <p> <strong> {comment} </strong> </p>
-            <div className='deled'>
-            <button onClick={() => deleteComment(index)}>Delete</button>
-            <button onClick={() => handleEditComment(index)}>Edit</button>
-          </div>
+              <button onClick={() => deleteComment(index)} >Delete</button>
+              <button className='edit_button'
+              onClick={() => handleEditComment(index)}>Edit</button>
           </div>
         ))}
-      
+        </div>
+
+        </div>
       </div>
 
       <div className="photo-gallery">
@@ -137,7 +138,6 @@ return (
             />
           ))}
     </div>
-
     
  </div>
 );

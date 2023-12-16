@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchApartmentById } from '../mockApi';
 import "./ApartmentDetail.css";
+import { WhatsappShareButton } from 'react-share';
 
 function ApartmentDetail() {
   const { id } = useParams();
@@ -10,19 +11,16 @@ function ApartmentDetail() {
   const [editingCommentIndex, setEditingCommentIndex] = useState(-1);
   const [comments, setComments] = useState([]); // Добавьте состояние для комментариев
 
-  // Функция для добавления комментария
   const addComment = (comment) => {
     setComments([...comments, comment]);
   };
 
-  // Функция для обновления комментария
   const updateComment = (index, comment) => {
     const updatedComments = [...comments];
     updatedComments[index] = comment;
     setComments(updatedComments);
   };
 
-  // Функция для удаления комментария
   const deleteComment = (index) => {
     const updatedComments = [...comments];
     updatedComments.splice(index, 1);
@@ -49,9 +47,14 @@ function ApartmentDetail() {
     }
   };
 
+  const shareCurrentPageWithWhatsApp = () => {
+    const currentUrl = window.location.href;
+    const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(currentUrl)}`;
+    window.location.href = whatsappUrl;
+  };
+
 
   useEffect(() => {
-    // Загрузка данных о квартире по идентификатору
     fetchApartmentById(parseInt(id, 10))
       .then((data) => {
         setApartment(data);
@@ -88,6 +91,9 @@ return (
               ))}
             </ul>
         </div>
+        <WhatsappShareButton url={window.location.href}>
+          Share this apartment via WhatsApp
+        </WhatsappShareButton>
 
         </div>
 
@@ -100,7 +106,7 @@ return (
           <h3 className='author-section'>Author of the ad: <span>{apartment.author}</span></h3>
           <p className='contacts'> Contacts: {apartment.number}</p>
         </div>
-
+        
        <div className='line'>
         <input
           type="text"
@@ -118,14 +124,14 @@ return (
         {comments.map((comment, index) => (
           <div key={index} className="comment-box">
             <p> <strong> {comment} </strong> </p>
-            <div className='deled'>
-            <button onClick={() => deleteComment(index)}>Delete</button>
-            <button onClick={() => handleEditComment(index)}>Edit</button>
+            <div>
+            <button  className='but'onClick={() => deleteComment(index)}>Delete</button>
+            <button className='but' onClick={() => handleEditComment(index)}>Edit</button>
           </div>
           </div>
         ))}
-
       </div>
+     
 
       <div className="photo-gallery">
           {apartment.images.map((image, index) => (

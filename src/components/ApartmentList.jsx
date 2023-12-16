@@ -70,7 +70,8 @@ function ApartmentList({ apartments }) {
 
       <br />
       <label>
-        <input
+        <input 
+          className="search_input"
           type="text"
           value={searchText}
           placeholder='Search by keywords for addresses or names'

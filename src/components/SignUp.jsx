@@ -1,86 +1,127 @@
-import React from 'react';
-import './SignUp.css'; // Измените название файла CSS, если необходимо
-import { Link } from 'react-router-dom';
-import { auth } from '../firebase'; // Импортируем экземпляр auth из вашего файла firebase.js
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import React, { useState, useMemo } from 'react';
+import './SignUp.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth, firestore } from '../firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
-class SignUp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      error: null,
+const SignUp = () => {
+    const navigate = useNavigate();
+    const [userData, setUserData] = useState({
+        email: '',
+        password: '',
+        username: '',
+        phoneNumber: '',
+        error: null,
+    });
+
+    const { email, password, username, phoneNumber, error: errorMsg } = userData; // Rename error variable in destructuring
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setUserData({ ...userData, [name]: value });
     };
-  }
 
-  handleInputChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  }
+    const [error, setError] = useState(null); // Rename error state variable
 
-  handleSubmit = async (event) => {
-    event.preventDefault();
-    const { username, password } = this.state;
-
-    try {
-      // Используем createUserWithEmailAndPassword для регистрации нового пользователя
-      createUserWithEmailAndPassword(auth, username, password).then((auth) => {
-        // it successfully created a new user with email and password
-        if (auth) {
-          this.props.history.push('/'); // Переход на главную страницу после успешной регистрации
-        }
-      })
-    } catch (error) {
-      this.setState({ error: error.message });
-    }
-  }
-
-  render() {
-    return (
-      <div className="grid">
-        <form className="form login" onSubmit={this.handleSubmit}>
-          <div className="form__field">
-            <label htmlFor="signup__username">
-              <span className="hidden">Username</span>
-            </label>
-            <input
-              id="signup__username"
-              type="text"
-              name="username"
-              className="form__input"
-              placeholder="Username"
-              required
-              value={this.state.username}
-              onChange={this.handleInputChange}
-            />
-          </div>
-
-          <div className="form__field">
-            <label htmlFor="signup__password">
-              <span className="hidden">Password</span>
-            </label>
-            <input
-              id="signup__password"
-              type="password" 
-              name="password"
-              className="form__input"
-              placeholder="Password"
-              required
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            />
-          </div>
-
-          <div className="form__field">
-            <input type="submit" value="Sign Up" className='loginButton'/>
-          </div>
-          {this.state.error && <p>{this.state.error}</p>}
-        </form>
-        <Link to="/login">Already have an account? Sign In</Link>
-      </div>
+    const memoizedSignUp = useMemo(
+      () =>
+        async () => {
+          try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            if (user) {
+              await firestore.collection('users').doc(user.uid).set({
+                username: username,
+                email: email,
+                phoneNumber: phoneNumber,
+              });
+              navigate('/');
+            }
+          } catch (err) {
+            setError(err.message); // Set error state if signup fails
+          }
+        },
+      [email, password, username, phoneNumber, navigate]
     );
-  }
-}
+    
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      await memoizedSignUp(); // Await signup function
+    };
+
+    return (
+        <div className="grid">
+            <form className="form login" onSubmit={handleSubmit}>
+                <div className="form__field">
+                    <h2>Yurta</h2>
+                    <label htmlFor="signup__email">
+                        <span className="hidden">Email</span>
+                    </label>
+                    <input
+                        id="signup__email"
+                        type="text"
+                        name="email"
+                        className="form__input"
+                        placeholder="Email"
+                        required
+                        value={email}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <div className="form__field">
+                    <label htmlFor="signup__username">
+                        <span className="hidden">Username</span>
+                    </label>
+                    <input
+                        id="signup__username"
+                        type="text"
+                        name="username"
+                        className="form__input"
+                        placeholder="Username"
+                        required
+                        value={username}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <div className="form__field">
+                    <label htmlFor="signup__phone">
+                        <span className="hidden">Phone Number</span>
+                    </label>
+                    <input
+                        type="tel"
+                        name="phoneNumber"
+                        className="form__input"
+                        placeholder="Phone Number"
+                        required
+                        value={phoneNumber}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <div className="form__field">
+                    <label htmlFor="signup__password">
+                        <span className="hidden">Password</span>
+                    </label>
+                    <input
+                        id="signup__password"
+                        type="password"
+                        name="password"
+                        className="form__input"
+                        placeholder="Password"
+                        required
+                        value={password}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <input type="submit" value="Sign Up" className="loginButton" />
+                {errorMsg && <p>{errorMsg}</p>} 
+            </form>
+        </div>
+    );
+};
 
 export default SignUp;
+

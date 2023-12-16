@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+
 import "./Profile.css"
+import React, { useEffect, useState } from 'react';
+import { auth } from '../firebase';
 
 function Profile() {
   const [profileImage, setProfileImage] = useState(null);
@@ -19,6 +21,27 @@ function Profile() {
     rooms: '',
     image: '',
   });
+
+  const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in.
+                setUser(user);
+                setUserEmail(user.email); // Обновляем значение email после входа
+                setTempEmail(user.email);
+                setUserName(user.username);
+                setTempName(user.userName);
+            } else {
+                // User is signed out.
+                setUser(null);
+            }
+        });
+
+        // Cleanup subscription on component unmount
+        return () => unsubscribe();
+    }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -166,6 +189,7 @@ function Profile() {
                 id="userEmail"
                 value={tempEmail}
                 onChange={handleEmailChange}
+                className='textInput'
               />
             ) : (
               <span>{userEmail}</span>
@@ -179,6 +203,7 @@ function Profile() {
                 id="userPhone"
                 value={tempPhone}
                 onChange={handlePhoneChange}
+                className='textInput'
               />
             ) : (
               <span>{userPhone}</span>
