@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchApartmentById } from '../mockApi';
 import "./ApartmentDetail.css";
-import { WhatsappShareButton } from 'react-share';
+import { WhatsappShareButton,TelegramShareButton } from 'react-share';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faTelegram } from '@fortawesome/free-brands-svg-icons';
+
 
 function ApartmentDetail() {
   const { id } = useParams();
@@ -11,14 +15,29 @@ function ApartmentDetail() {
   const [editingCommentIndex, setEditingCommentIndex] = useState(-1);
   const [comments, setComments] = useState([]); 
 
+  const saveCommentsToLocalStorage = (comments) => {
+    localStorage.setItem('apartmentComments', JSON.stringify(comments));
+  };
+  
+  const loadCommentsFromLocalStorage = () => {
+    const storedComments = localStorage.getItem('apartmentComments');
+    return storedComments ? JSON.parse(storedComments) : [];
+  };
+
+  
+
   const addComment = (comment) => {
-    setComments([...comments, comment]);
+    const updatedComments = [...comments, comment];
+    setComments(updatedComments);
+    setNewComment('');
   };
 
   const updateComment = (index, comment) => {
     const updatedComments = [...comments];
     updatedComments[index] = comment;
     setComments(updatedComments);
+    setEditingCommentIndex(-1);
+    setNewComment('');
   };
 
   const deleteComment = (index) => {
@@ -27,25 +46,14 @@ function ApartmentDetail() {
     setComments(updatedComments);
   };
 
-  const handleAddComment = () => {
-    if (newComment) {
-      addComment(newComment);
-      setNewComment('');
-    }
-  };
 
   const handleEditComment = (index) => {
     setEditingCommentIndex(index);
     setNewComment(comments[index]);
   };
 
-  const handleUpdateComment = () => {
-    if (newComment) {
-      updateComment(editingCommentIndex, newComment);
-      setEditingCommentIndex(-1);
-      setNewComment('');
-    }
-  };
+  
+  
 
   const shareCurrentPageWithWhatsApp = () => {
     const currentUrl = window.location.href;
@@ -53,10 +61,40 @@ function ApartmentDetail() {
     window.location.href = whatsappUrl;
   };
 
+  const shareCurrentPageWithTelegram = () => {
+    const currentUrl = window.location.href;
+    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}`;
+    window.open(telegramUrl, '_blank');
+  };
   
-
+  const handleAddComment = () => {
+    if (newComment) {
+      const updatedComments = [...comments, newComment];
+      setComments(updatedComments);
+      setNewComment('');
+    }
+  };
+  
+  const handleUpdateComment = () => {
+    if (newComment && editingCommentIndex !== -1) {
+      const updatedComments = [...comments];
+      updatedComments[editingCommentIndex] = newComment;
+      setComments(updatedComments);
+      setEditingCommentIndex(-1);
+      setNewComment('');
+    }
+  };
+  
   useEffect(() => {
-    // Загрузка данных о квартире по идентификатору
+    const storedComments = loadCommentsFromLocalStorage();
+    setComments(storedComments);
+  }, []);
+  
+  useEffect(() => {
+    saveCommentsToLocalStorage(comments);
+  }, [comments]);
+  
+  useEffect(() => {
     fetchApartmentById(parseInt(id, 10))
       .then((data) => {
         setApartment(data);
@@ -91,11 +129,14 @@ return (
               {apartment.advantages.map((advantage, index) => (
                 <li className='list' key={index}>{advantage}</li>
               ))}
-            </ul>
-            <h3 className='price-section'>Price: <span>{apartment.price} tg/month</span></h3>
-            <WhatsappShareButton  onClick={shareCurrentPageWithWhatsApp}>
-              Share this page with WhatsApp
-            </WhatsappShareButton >
+          </ul>
+          <p className='price-section'>Price: <span>{apartment.price} tg/month</span></p>
+            <WhatsappShareButton className='whatsapp' onClick={shareCurrentPageWithWhatsApp}>
+              <FontAwesomeIcon icon={faWhatsapp} />
+            </WhatsappShareButton>
+            <TelegramShareButton className='telegram' onClick={shareCurrentPageWithTelegram}>
+              <FontAwesomeIcon icon={faTelegram} />
+            </TelegramShareButton>
             <div> 
           <h3 className='author-section'>Author of the ad: <span>{apartment.author}</span></h3>
           <p>Contacts: {apartment.number}</p>
@@ -109,7 +150,7 @@ return (
           onChange={(e) => setNewComment(e.target.value)}
           className='add-comment'
         />
-        <button onClick={editingCommentIndex === -1 ? handleAddComment : handleUpdateComment}>
+        <button className='editSend' onClick={editingCommentIndex === -1 ? handleAddComment : handleUpdateComment}>
           {editingCommentIndex === -1 ? 'Send' : 'Update'}
         </button>
       </div>
@@ -118,7 +159,7 @@ return (
         {comments.map((comment, index) => (
           <div key={index} className="comment-box">
             <p> <strong> {comment} </strong> </p>
-              <button onClick={() => deleteComment(index)} >Delete</button>
+              <button className='delete_button' onClick={() => deleteComment(index)} >Delete</button>
               <button className='edit_button'
               onClick={() => handleEditComment(index)}>Edit</button>
           </div>

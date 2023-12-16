@@ -1,11 +1,14 @@
 // В NavBar.js
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
+
 import './NavBar.css';
 
 function NavBar() {
   const [user, setUser] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -16,13 +19,11 @@ function NavBar() {
     return () => unsubscribe();
   }, []);
 
-
-
   const handleLogout = async () => {
     try {
       await auth.signOut();
       setUser(null); // Очищаем состояние пользователя после выхода
-      window.location.reload();
+      navigate('/'); // Перенаправляем на главную страницу
     } catch (error) {
       console.error('Error signing out:', error);
     }

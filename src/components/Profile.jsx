@@ -14,6 +14,8 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [editingApartmentIndex, setEditingApartmentIndex] = useState(null);
   const [userApartments, setUserApartments] = useState([]);
+  const [newPassword, setNewPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
   const [newApartment, setNewApartment] = useState({
     name: '',
     address: '',
@@ -31,8 +33,6 @@ function Profile() {
                 setUser(user);
                 setUserEmail(user.email); // Обновляем значение email после входа
                 setTempEmail(user.email);
-                setUserName(user.username);
-                setTempName(user.userName);
             } else {
                 // User is signed out.
                 setUser(null);
@@ -209,9 +209,9 @@ function Profile() {
               <span>{userPhone}</span>
             )}
           </div>
-
-          
         </div>
+
+        <br></br>
         {isEditing ? (
           <input type="file" accept="image/*" onChange={handleImageChange} />
         ) : null}
@@ -221,7 +221,8 @@ function Profile() {
     <button onClick={handleEditClick} className="editButton">
         {isEditing ? 'Сохранить' : 'Редактировать'}
     </button>
-
+    <br></br>
+    
     <div className="newApartment">
       <h3>Add new apartment</h3>
       <label>Apartment Name</label>

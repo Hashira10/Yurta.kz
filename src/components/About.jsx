@@ -11,7 +11,7 @@ function About() {
           world of real estate, providing you with a 
           wide selection of apartments and houses for rent.
         </p>
-        <h4>Our mission</h4>
+        <h3>Our mission</h3>
         <p>Our values are rooted in providing the best 
           services and meeting the needs of our customers. 
           We strive to make the search and rental of real 
@@ -19,7 +19,7 @@ function About() {
           information about the most relevant objects on the market. 
           Our goal is to make your home a place where you feel at home.
           </p>
-        <h4>Our advantages</h4>
+        <h3>Our advantages</h3>
         <p>Large selection: We offer a variety of apartments and houses so that you can find what suits your needs and budget.
           Reliability: We cooperate only with trusted agents and property owners to ensure your safety and comfort.
           Simple search: Our convenient search allows you to easily find accommodation by various parameters, including price and number of rooms.

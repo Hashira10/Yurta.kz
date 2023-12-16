@@ -30,11 +30,6 @@ const SignUp = () => {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
             if (user) {
-              await firestore.collection('users').doc(user.uid).set({
-                username: username,
-                email: email,
-                phoneNumber: phoneNumber,
-              });
               navigate('/');
             }
           } catch (err) {
@@ -117,7 +112,7 @@ const SignUp = () => {
                 </div>
 
                 <input type="submit" value="Sign Up" className="loginButton" />
-                {errorMsg && <p>{errorMsg}</p>} 
+                {error && <p>{error}</p>} 
             </form>
         </div>
     );
