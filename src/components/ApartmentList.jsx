@@ -29,6 +29,8 @@ function ApartmentList({ apartments }) {
 
       return roomMatch && priceMatch && searchMatch;
     });
+
+    // Теперь filteredApartments содержит результаты фильтрации.
   };
 
   const filteredApartments = apartments.filter((apartment) => {
@@ -62,6 +64,7 @@ function ApartmentList({ apartments }) {
           type="number"
           value={maxPrice}
           onChange={(e) => {
+            // Убираем ноль в начале, если он там есть
             const value = e.target.value.replace(/^0+/g, '');
             setMaxPrice(value);
           }}
@@ -70,15 +73,14 @@ function ApartmentList({ apartments }) {
 
       <br />
       <label>
-        <input 
-          className="search_input"
+        <input
           type="text"
           value={searchText}
           placeholder='Search by keywords for addresses or names'
           onChange={(e) => setSearchText(e.target.value)}
         />
       </label>
-      
+
 
       <div className="apartment-cards">
         {filteredApartments.length > 0 ? (
@@ -101,5 +103,3 @@ function ApartmentList({ apartments }) {
 }
 
 export default ApartmentList;
-
-

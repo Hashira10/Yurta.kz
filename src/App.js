@@ -9,17 +9,28 @@ import Profile from './components/Profile';
 import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
 import "./App.css";
-
 import React, { useEffect, useState } from 'react';
 import { fetchApartments } from './mockApi';
 
-
-
-
 function App() {
 
-  const [apartments, setApartments] = useState([]);
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registered:', registration);
+          })
+          .catch(error => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+  }, []);
 
+  const [apartments, setApartments] = useState([]);
+  
   useEffect(() => {
     fetchApartments()
       .then((data) => {

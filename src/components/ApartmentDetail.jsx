@@ -60,6 +60,7 @@ function ApartmentDetail() {
     const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(currentUrl)}`;
     window.location.href = whatsappUrl;
   };
+  
 
   const shareCurrentPageWithTelegram = () => {
     const currentUrl = window.location.href;
@@ -131,10 +132,10 @@ return (
               ))}
           </ul>
           <p className='price-section'>Price: <span>{apartment.price} tg/month</span></p>
-            <WhatsappShareButton className='whatsapp' onClick={shareCurrentPageWithWhatsApp}>
+            <WhatsappShareButton className='whatsapp' url = {window.location.href}>
               <FontAwesomeIcon icon={faWhatsapp} />
             </WhatsappShareButton>
-            <TelegramShareButton className='telegram' onClick={shareCurrentPageWithTelegram}>
+            <TelegramShareButton className='telegram' url = {window.location.href}>
               <FontAwesomeIcon icon={faTelegram} />
             </TelegramShareButton>
             <div> 

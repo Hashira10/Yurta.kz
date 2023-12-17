@@ -29,17 +29,13 @@ function Profile() {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user) {
-                // User is signed in.
                 setUser(user);
-                setUserEmail(user.email); // Обновляем значение email после входа
+                setUserEmail(user.email);
                 setTempEmail(user.email);
             } else {
-                // User is signed out.
                 setUser(null);
             }
         });
-
-        // Cleanup subscription on component unmount
         return () => unsubscribe();
     }, []);
 
