@@ -215,7 +215,7 @@ function Profile() {
     </div>
 
     <button onClick={handleEditClick} className="editButton">
-        {isEditing ? 'Сохранить' : 'Редактировать'}
+        {isEditing ? 'Save' : 'Edit'}
     </button>
     <br></br>
     

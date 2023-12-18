@@ -1,7 +1,7 @@
 var doCache = false;
 var CACHE_NAME = 'my-pwa-cache-v1';
 
-// Delete old caches that are not our current one!
+// Delete old caches that are not our current one
 self.addEventListener("activate", event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
@@ -25,7 +25,7 @@ self.addEventListener('install', function(event) {
         .then(function(cache) {
           // Get the assets manifest so we can see what our js file is named
           // This is because webpack hashes it
-          fetch("asset-manifest.json")
+          fetch("manifest.json")
             .then(response => {
               response.json()
             })

@@ -14,6 +14,46 @@ function ApartmentDetail() {
   const [newComment, setNewComment] = useState('');
   const [editingCommentIndex, setEditingCommentIndex] = useState(-1);
   const [comments, setComments] = useState([]); 
+  const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
+  const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+
+
+  const handleBooking = (e) => {
+    e.preventDefault();
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+    if (endDateObj.getTime() < startDateObj.getTime()) {
+      alert('The end date of the booking cannot be earlier than the start date!');
+      return;
+    }
+
+    if (!startDateObj || !endDateObj || isNaN(startDateObj.getTime()) || isNaN(endDateObj.getTime())) {
+      console.error('Invalid date format');
+      return;
+    }
+    // Calculate the time difference
+    const differenceInTime = endDateObj.getTime() - startDateObj.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+    // Assuming apartment.price is the price per day
+    const pricePerDay = apartment.price/30;
+    const totalPrice = pricePerDay * differenceInDays;
+
+    console.log(`Total price: ${totalPrice} for ${differenceInDays} days`);
+    setTotalPrice(totalPrice);
+    setShowPaymentForm(true);
+  };
+
+  const handlePaymentSubmit = (e) => {
+    e.preventDefault();
+    alert('The payment was successfully completed! The apartment is booked.');
+    setShowPaymentForm(false);
+  };
+  
+  
 
   const saveCommentsToLocalStorage = (comments) => {
     localStorage.setItem('apartmentComments', JSON.stringify(comments));
@@ -143,6 +183,36 @@ return (
           <p>Contacts: {apartment.number}</p>
         </div>
 
+        <form onSubmit={handleBooking} className='formCont'>
+          <label htmlFor="start-date" id='start'>Booking start date:</label>
+          <input
+            type="date"
+            id="start-date"
+            name="start-date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          <label htmlFor="end-date" id='end'>Booking end date:</label>
+          <input
+            type="date"
+            id="end-date"
+            name="end-date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+          <button type="submit" className='subButt'>Book</button>
+        </form>
+
+        {showPaymentForm && (
+          <form className="payment-form" onSubmit={handlePaymentSubmit}>
+            <p>Total Amount: {totalPrice} tg</p>
+            <input type="text" placeholder="Card Number" />
+            <input type="text" placeholder="Expiration Date" />
+            <input type="text" placeholder="CVV" />
+            <button type="submit">Pay Now</button>
+          </form>
+        )}
+        
        <div className='line'>
         <input
           type="text"
